@@ -80,3 +80,26 @@ each container starts from the image definition each time it starts.
 Volumes provide the ability to connect specific filesystem paths of the container back to the host machine.
 
 bind mount: share directory from host filesystem to container
+
+In general, `each container should do one thing and do it well.`
+
+If two containers are on the same network, they can talk to each other.
+
+## multi container
+
+```bash
+# create a network for the container to communicate
+docker network create <network name>
+
+# start a container in correspnding network
+docker run -d \
+     --network todo-app --network-alias mysql \
+     -v todo-mysql-data:/var/lib/mysql \
+     -e MYSQL_ROOT_PASSWORD=secret \
+     -e MYSQL_DATABASE=todos \
+     mysql:8.0
+
+
+# nicolaka/netshoot container, which ships with a lot of tools that are useful for troubleshooting or debugging networking issues.
+docker run -it --network todo-app nicolaka/netshoot
+```
