@@ -55,4 +55,17 @@ docker stop <the-container-id>
 
 # publishing the image to docker
 docker push <account name>/<image name>
+
+# create a volume
+docker volume create <volume name>
+
+# start the container with volume mount
+docker run -dp 3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
+
+# inspect the details of the volume
+docker volume inspect <volume name>
 ```
+
+each container starts from the image definition each time it starts.
+
+Volumes provide the ability to connect specific filesystem paths of the container back to the host machine.
