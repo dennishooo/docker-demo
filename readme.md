@@ -52,4 +52,7 @@ docker ps
 
 # stop the old container
 docker stop <the-container-id>
+
+# publishing the image to docker
+docker push <account name>/<image name>
 ```
