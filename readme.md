@@ -62,10 +62,21 @@ docker volume create <volume name>
 # start the container with volume mount
 docker run -dp 3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
 
+# start the container with bind mount
+docker run -dp 3000:3000 --mount type=bind,src=/Users/dennisho/Desktop,target=/etc/todos hkhdennis/items
+
 # inspect the details of the volume
 docker volume inspect <volume name>
+
+# runnig docker with source code watched
+docker run -dp 3000:3000 \
+    -w /app --mount type=bind,src="$(pwd)",target=/app \
+    node:18-alpine \
+    sh -c "yarn install && yarn run dev"
 ```
 
 each container starts from the image definition each time it starts.
 
 Volumes provide the ability to connect specific filesystem paths of the container back to the host machine.
+
+bind mount: share directory from host filesystem to container
