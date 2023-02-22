@@ -102,4 +102,13 @@ docker run -d \
 
 # nicolaka/netshoot container, which ships with a lot of tools that are useful for troubleshooting or debugging networking issues.
 docker run -it --network todo-app nicolaka/netshoot
+
+# to follow the logs of specific services within docker compose
+docker compose logs -f <service name>
 ```
+
+## Docker Compose
+
+The big advantage of using Compose is you can define your application stack in a file, keep it at the root of your project repo (it’s now version controlled), and easily enable someone else to contribute to your project.
+
+By default, Docker Compose automatically creates a network specifically for the application stack (which is why we didn’t define one in the compose file).
