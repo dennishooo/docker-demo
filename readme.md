@@ -112,3 +112,38 @@ docker compose logs -f <service name>
 The big advantage of using Compose is you can define your application stack in a file, keep it at the root of your project repo (it’s now version controlled), and easily enable someone else to contribute to your project.
 
 By default, Docker Compose automatically creates a network specifically for the application stack (which is why we didn’t define one in the compose file).
+
+## building image best practices
+
+```bash
+# scanning a image
+docker scan <image name>
+
+# see the command used to create each layer of the image
+docker image history <image name>
+```
+
+Once a layer changes, all downstream layers have to be recreated as well
+
+copy package.json only and install to avoid copying everything
+
+## Multi-stage builds
+
+separationg build time dependencies fron runtime dependicies
+reduce overall image size
+
+### react example
+
+```dockerfile
+# syntax=docker/dockerfile:1
+FROM node:18 AS build
+WORKDIR /app
+COPY package* yarn.lock ./
+RUN yarn install
+COPY public ./public
+COPY src ./src
+RUN yarn run build
+
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+```
