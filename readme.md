@@ -147,3 +147,17 @@ RUN yarn run build
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 ```
+
+## What is a container?
+
+https://www.youtube.com/watch?v=8fi7uSYlOdc
+
+namespaces
+
+- limit what a process can see
+- created with syscall
+
+chroot
+cgroup
+
+hostname
